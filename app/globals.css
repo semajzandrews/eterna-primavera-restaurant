@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+/* Eterna Primavera · Tokens
+   Concept: "La Eterna Primavera" — Guatemala, the Land of Eternal Spring.
+   Heritage-lux Guatemalan comedor. Oxblood + masa cream + jade + huipil
+   thread. Editorial serif (Bespoke Serif). Real plated-food spine. */
+@theme {
+  --color-oxblood:   #9C1F2E;   /* LANE accent — chile rojo / flag depth */
+  --color-oxblood-2: #7A1623;
+  --color-oxblood-3: #5C0F1A;
+  --color-masa:      #F3E7D2;   /* warm masa / tortilla cream page ground */
+  --color-masa-2:    #E8D6B8;
+  --color-masa-3:    #DBC39C;
+  --color-cacao:     #2A1A12;   /* deep roasted-cacao ink */
+  --color-cacao-2:   #4A3324;
+  --color-jade:      #2F5D4F;   /* quetzal jade / spring green */
+  --color-jade-2:    #3E7A66;
+  --color-gold:      #C99B3B;   /* toasted-corn gold */
+  --color-gold-2:    #E0B85A;
+  --color-clay:      #C56A3D;   /* terracotta / achiote */
+  --color-bone:      #FBF5E9;
+
+  --font-display: "Bespoke Serif", "Hoefler Text", Georgia, ui-serif, serif;
+  --font-body:    "General Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-tanker:  "Tanker", "Bespoke Serif", ui-serif, serif;
+}
+
+@layer base {
+  :root {
+    --oxblood:#9C1F2E; --oxblood-2:#7A1623; --oxblood-3:#5C0F1A;
+    --masa:#F3E7D2; --masa-2:#E8D6B8; --masa-3:#DBC39C;
+    --cacao:#2A1A12; --cacao-2:#4A3324;
+    --jade:#2F5D4F; --jade-2:#3E7A66;
+    --gold:#C99B3B; --gold-2:#E0B85A;
+    --clay:#C56A3D; --bone:#FBF5E9;
+  }
+  html, body {
+    background: var(--masa);
+    color: var(--cacao);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  ::selection { background: var(--oxblood); color: var(--bone); }
+  h1,h2,h3,h4 { font-family: var(--font-display); font-weight: 500; }
+}
+
+/* Faint paper/woven grain on the masa ground */
+.grain {
+  background-image:
+    radial-gradient(rgba(42,26,18,0.020) 1px, transparent 1px),
+    radial-gradient(rgba(156,31,46,0.014) 1px, transparent 1.5px);
+  background-size: 3px 3px, 6px 6px;
+}
+
+/* Huipil thread — the signature woven hairline divider.
+   A repeating diamond/zigzag in oxblood + jade + gold, like a hand-loomed band. */
+.huipil-thread {
+  height: 10px;
+  width: 100%;
+  background-image:
+    repeating-linear-gradient(135deg,
+      var(--oxblood) 0 6px, transparent 6px 12px),
+    repeating-linear-gradient(45deg,
+      var(--jade) 0 6px, transparent 6px 12px),
+    repeating-linear-gradient(90deg,
+      var(--gold) 0 2px, transparent 2px 14px);
+  background-size: 24px 10px, 24px 10px, 14px 10px;
+  opacity: 0.85;
+}
+.huipil-thread--thin { height: 5px; opacity: 0.7; }
+
+/* The hero heritage frame — a double oxblood rule inset from the edge */
+.heritage-frame {
+  position: absolute;
+  inset: clamp(10px, 2.4vw, 26px);
+  border: 1.5px solid rgba(251,245,233,0.55);
+  outline: 1px solid rgba(251,245,233,0.22);
+  outline-offset: 6px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Heat shimmer — restrained steam over the hero plate (signature, subtle) */
+@keyframes heat-rise {
+  0%   { transform: translateY(8px) scaleX(1);   opacity: 0; }
+  35%  { opacity: 0.5; }
+  70%  { opacity: 0.28; }
+  100% { transform: translateY(-22px) scaleX(1.06); opacity: 0; }
+}
+.heat {
+  position: absolute;
+  bottom: 18%;
+  width: 38px; height: 120px;
+  background: radial-gradient(ellipse at center, rgba(251,245,233,0.5), transparent 68%);
+  filter: blur(7px);
+  animation: heat-rise 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Ken-burns slow drift for hero / feature plates */
+@keyframes kenburns {
+  0%   { transform: scale(1.06) translate(0,0); }
+  100% { transform: scale(1.16) translate(-1.5%, -1.5%); }
+}
+.kenburns { animation: kenburns 22s ease-out infinite alternate; }
+
+/* Display numerals for the feature spread */
+.feature-num {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 0.8;
+  color: var(--oxblood);
+}
+
+/* Reveal-on-scroll base (JS toggles .in) */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: .08s; }
+.reveal-d2 { transition-delay: .16s; }
+.reveal-d3 { transition-delay: .24s; }
+
+/* Letter-weave: the huipil divider draws in from center on scroll */
+.weave-in { transform: scaleX(0); transform-origin: center; transition: transform 1.1s cubic-bezier(.16,1,.3,1); }
+.weave-in.in { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .kenburns, .heat, .huipil-thread { animation: none !important; }
+  .reveal, .weave-in { opacity: 1 !important; transform: none !important; }
+}
