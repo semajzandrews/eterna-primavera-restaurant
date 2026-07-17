@@ -64,7 +64,7 @@ export default function Footer() {
             className="group flex items-center gap-2 text-[0.72rem] uppercase tracking-[0.2em] text-[var(--masa)]/55 transition-colors hover:text-[var(--gold-2)]"
           >
             <span className="h-px w-6 bg-[var(--gold)]/50 transition-all group-hover:w-9" />
-            Built by bysemaj.com
+            built bysemaj.com
           </a>
         </div>
       </div>
